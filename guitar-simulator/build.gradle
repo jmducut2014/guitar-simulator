@@ -1,0 +1,31 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    // No external dependencies — pure Java + Swing + javax.sound.
+    // Removing the repositories block would also work; keeping an empty one
+    // is harmless and lets Gradle sync without network access if needed.
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+application {
+    mainClass = 'guitar.Main'
+}
+
+// Make `gradle run` launch the GUI with a small heap.
+run {
+    jvmArgs = ['-Xmx256m']
+}
+
+jar {
+    archiveBaseName = 'guitar-simulator'
+    manifest {
+        attributes 'Main-Class': 'guitar.Main'
+    }
+}
